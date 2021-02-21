@@ -6,31 +6,63 @@
 //
 
 import UIKit
+import RealmSwift    // 追加する
 
 class InputViewController: UIViewController {
-
+    
     
     @IBOutlet weak var titleTextField: UITextField!
     
-    @IBOutlet weak var cintentsTextView: UITextView!
+    @IBOutlet weak var contentsTextView: UITextView!
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    @IBOutlet weak var categoryTextField: UITextField!
     
+    
+    let realm = try! Realm()
+    
+       var task: Task!
 
-    /*
-    // MARK: - Navigation
+       override func viewDidLoad() {
+           super.viewDidLoad()
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+           // 背景をタップしたらdismissKeyboardメソッドを呼ぶように設定する
+           let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
+           self.view.addGestureRecognizer(tapGesture)
 
-}
+           titleTextField.text = task.title
+           contentsTextView.text = task.contents
+           datePicker.date = task.date
+        
+        // 以下、 自分で追加
+        categoryTextField.text = task.category
+        
+        //以上、自分で追加
+       }
+
+       override func viewWillDisappear(_ animated: Bool) {
+           try! realm.write {
+               self.task.title = self.titleTextField.text!
+               self.task.contents = self.contentsTextView.text
+               self.task.date = self.datePicker.date
+            
+            // 以下、自分で追加
+            self.task.category = self.categoryTextField.text!
+            //以上、自分で追加
+            
+               self.realm.add(self.task, update: .modified)
+            
+           }
+
+           super.viewWillDisappear(animated)
+       }
+
+       @objc func dismissKeyboard(){
+           // キーボードを閉じる
+           view.endEditing(true)
+       }
+   }
+
+
+

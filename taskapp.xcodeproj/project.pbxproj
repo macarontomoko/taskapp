@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		AD40259625DC9D6300448E38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD40259525DC9D6300448E38 /* Assets.xcassets */; };
 		AD40259925DC9D6300448E38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD40259725DC9D6300448E38 /* LaunchScreen.storyboard */; };
 		AD4025A325DCB4BD00448E38 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4025A225DCB4BD00448E38 /* InputViewController.swift */; };
+		AD4025AB25DD316100448E38 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4025AA25DD316100448E38 /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		AD40259825DC9D6300448E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD40259A25DC9D6300448E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD4025A225DCB4BD00448E38 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
+		AD4025AA25DD316100448E38 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				AD40259525DC9D6300448E38 /* Assets.xcassets */,
 				AD40259725DC9D6300448E38 /* LaunchScreen.storyboard */,
 				AD40259A25DC9D6300448E38 /* Info.plist */,
+				AD4025AA25DD316100448E38 /* Task.swift */,
 			);
 			path = taskapp;
 			sourceTree = "<group>";
@@ -91,7 +94,6 @@
 				13AB63F67B114D7FD784211D /* Pods-taskapp.debug.xcconfig */,
 				23AD55EBC84FF7B286E845FA /* Pods-taskapp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -211,6 +213,7 @@
 			files = (
 				AD40259125DC9D6000448E38 /* ViewController.swift in Sources */,
 				AD40258D25DC9D6000448E38 /* AppDelegate.swift in Sources */,
+				AD4025AB25DD316100448E38 /* Task.swift in Sources */,
 				AD40258F25DC9D6000448E38 /* SceneDelegate.swift in Sources */,
 				AD4025A325DCB4BD00448E38 /* InputViewController.swift in Sources */,
 			);
