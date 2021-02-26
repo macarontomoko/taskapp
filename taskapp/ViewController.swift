@@ -45,7 +45,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let predicate = NSPredicate(format: "category = %@", SearchBar.text!)
         let SearchResult = realm.objects(Task.self).filter(predicate)
         
+        if(SearchBar.text == "") {
+                    //検索文字列が空の場合はすべてを表示する。
+                     taskArray = realm.objects(Task.self)
+        } else {
         taskArray = SearchResult
+        }
         print(SearchResult)
         // 再度、読み込み。
         tableView.reloadData()
