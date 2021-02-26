@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift   // ←追加
+import UserNotifications    // 追加
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
@@ -39,17 +40,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         SearchBar.endEditing(true)
         
-         print("hello")
+        print("hello")
         
         // 検索。
         let predicate = NSPredicate(format: "category = %@", SearchBar.text!)
         let SearchResult = realm.objects(Task.self).filter(predicate)
         
         if(SearchBar.text == "") {
-                    //検索文字列が空の場合はすべてを表示する。
-                     taskArray = realm.objects(Task.self)
+            //検索文字列が空の場合はすべてを表示する。
+            taskArray = realm.objects(Task.self)
         } else {
-        taskArray = SearchResult
+            taskArray = SearchResult
         }
         print(SearchResult)
         // 再度、読み込み。
@@ -96,6 +97,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Delete ボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        // --- ここから ---
+        if editingStyle == .delete {
+            // 削除するタスクを取得する
+            let task = self.taskArray[indexPath.row]
+            
+            // ローカル通知をキャンセルする
+            let center = UNUserNotificationCenter.current()
+            center.removePendingNotificationRequests(withIdentifiers: [String(task.id)])
+            
+            // データベースから削除する
+            try! realm.write {
+                self.realm.delete(task)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            // 未通知のローカル通知一覧をログ出力
+            center.getPendingNotificationRequests { (requests: [UNNotificationRequest]) in
+                for request in requests {
+                    print("/---------------")
+                    print(request)
+                    print("---------------/")
+                }
+            }
+        } // --- ここまで変更 ---
         // --- ここから ---
         if editingStyle == .delete {
             // データベースから削除する
